@@ -1,0 +1,3 @@
+rootProject.name = 'uiseedClient'
+
+include ':app'
