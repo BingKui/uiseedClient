@@ -14,3 +14,8 @@ uiseed手机客户端react-native重构。
 或者
 
 > react-native run-ios
+
+#更新日志
+
+[组件更新](https://github.com/BingKui/uiseedClient/blob/master/componentLog.md)
+[服务更新](https://github.com/BingKui/uiseedClient/blob/master/serviceLog.md)
