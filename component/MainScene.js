@@ -18,15 +18,9 @@ export default class MainScene extends Component {
 		return (
 			<View>
 		        <View style={styles.header}>
-			        <TouchableHighlight style={styles.back} onPress={this.props.onBack}>
-			            <Image style={styles.back} source={require('./back.png')}/>
-			        </TouchableHighlight>
-			        <Text style={styles.headerTitle}>{ this.props.title }</Text>
+			        <Text style={styles.headerTitle}>uiseed.cn</Text>
 		        </View>
-		        <TouchableHighlight onPress={this.props.onForward}>
-		          	<Text>点我进入下一场景</Text>
-		        </TouchableHighlight>
-		        <ArticleList></ArticleList>
+		        <ArticleList navigator={this.props.navigator}></ArticleList>
       		</View>
 		)
 	}
@@ -45,7 +39,7 @@ var styles = StyleSheet.create({
 	},
 	headerTitle: {
 		textAlign: 'center',
-		width: _width - 90,
+		width: _width,
 		color: '#fff',
 		fontSize: 16
 	},

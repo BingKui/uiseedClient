@@ -3,15 +3,17 @@ import React, {
 	PropTypes
 } from 'react';
 import {
-	AppRegistry,
 	Image,
 	StyleSheet,
 	ListView,
 	Text,
-	View
+	View,
+	TouchableOpacity,
+	Navigator
 } from 'react-native';
 
-import ArticleItem from './ArticleItem'
+import ArticleItem from './ArticleItem';
+import ArticleDetail from './ArticleDetail';
 
 const REQUEST_URL = 'http://uiseed.cn/?json=1&count=30'; //数据地址
 export default class ArticleList extends Component {
@@ -24,14 +26,19 @@ export default class ArticleList extends Component {
 			dataSource: new ListView.DataSource({
 				rowHasChanged: (row1, row2) => row1 !== row2,
 			}),
-			loaded: false
+			loaded: false,
+			navigator: {}
 		};
 		// 在ES6中，如果在自定义的函数里使用了this关键字，则需要对其进行“绑定”操作，否则this的指向不对
 		// 像下面这行代码一样，在constructor中使用bind是其中一种做法（还有一些其他做法，如使用箭头函数等）
 		this.fetchData = this.fetchData.bind(this);
+		this.renderMovie = this.renderMovie.bind(this);
 	}
 	componentDidMount() {
 		this.fetchData();
+		this.setState({
+			navigator: this.props.navigator
+		});
 	}
 	fetchData() {
 		fetch(REQUEST_URL)
@@ -58,14 +65,32 @@ export default class ArticleList extends Component {
 	}
 	renderLoadingView() {
 		return (
-			<View style={styles.container}>
+			<View style={styles.loadContainer}>
 		        <Text>数据加载中...</Text>
 		    </View>
 		);
 	}
+	_onPress = (_id, _title, _img) => {
+		const {
+			navigator
+		} = this.props;
+		if (navigator) {
+			navigator.push({
+				name: 'ArticleDetail',
+				component: ArticleDetail,
+				params: {
+					id: _id,
+					title: _title,
+					img: _img
+				}
+			});
+		}
+	};
 	renderMovie(item) {
 		return (
-			<ArticleItem title={item.title} imgUrl={item.thumbnail}></ArticleItem>
+			<TouchableOpacity onPress={() =>{this._onPress(item.id, item.title, item.thumbnail)}} >
+				<ArticleItem title={item.title} imgUrl={item.thumbnail}></ArticleItem>
+			</TouchableOpacity>
 		);
 	}
 }
@@ -97,5 +122,8 @@ const styles = StyleSheet.create({
 	},
 	listView: {
 		backgroundColor: '#F5FCFF'
+	},
+	loadContainer: {
+		marginTop: 160
 	}
 });

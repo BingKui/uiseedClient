@@ -7,8 +7,11 @@ import {
 	View,
 	Text,
 	Image,
-	StyleSheet
+	StyleSheet,
+	TouchableOpacity
 } from 'react-native';
+
+import ArticleDetail from './ArticleDetail';
 
 export default class ArticleItem extends Component {
 	static propTypes = {
@@ -18,7 +21,7 @@ export default class ArticleItem extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-		        <Image
+				<Image
 		          source={{uri: this.props.imgUrl}}
 		          resizeMode={Image.resizeMode.cover}
 		          style={styles.thumbnail}
